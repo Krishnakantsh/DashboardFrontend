@@ -1,27 +1,28 @@
 import React, { useState } from "react";
 import { Button, TextField } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { addImage } from "../../ReduxSetup/images/Action";
+import { useNavigate } from "react-router-dom";
 
 const AddImage = () => {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState("");
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file && file.type.startsWith("image/")) {
-      setImage(file);
-      setPreview(URL.createObjectURL(file));
-    } else {
-      alert("Please select a valid image file.");
-    }
-  };
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
+
 
   const handleSubmit = (event) => {
+
     event.preventDefault();
-    if (!image) {
-      alert("Please upload an image first.");
-      return;
+    const data= new FormData(event.target);
+    const processData = {
+      image:data.get("image"),
+      title:data.get("title")
     }
-    console.log("Image uploaded:", image);
+    console.log(" data form for image upload : ", processData)
+    dispatch(addImage(processData, navigate))
   };
 
   return (
@@ -29,27 +30,23 @@ const AddImage = () => {
       
       <h2 className="text-xl font-semibold mb-4">Upload an Image</h2>
       
-      <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
+      <form  encType="multipart/form-data"   onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
         
-        {/* Image Preview */}
-        {preview && (
-          <div className="w-full h-48 flex items-center justify-center border rounded-md overflow-hidden bg-gray-100">
-            <img src={preview} alt="Preview" className="object-cover w-full h-full" />
-          </div>
-        )}
 
-        {/* File Input */}
         <input
           type="file"
+          name="image"
           accept="image/*"
-          onChange={handleImageChange}
           className="w-full p-2 border rounded"
         />
 
-        {/* Caption */}
-        <TextField label="Image Caption" variant="outlined" fullWidth />
+        <input 
+        label="Image Caption" 
+        name="title" 
+        variant="outlined"      
+        placeholder="Write Title"  
+        className="w-full p-2 border rounded" />
 
-        {/* Upload Button */}
         <Button type="submit" variant="contained" color="primary">
           Upload Image
         </Button>

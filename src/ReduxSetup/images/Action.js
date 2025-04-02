@@ -4,18 +4,21 @@ import axios from "axios";
 
  const jwt = localStorage.getItem("jwt");
 
-export const addImage = (formData) => async (dispatch) =>{
+export const addImage = (processData , navigate) => async (dispatch) =>{
   
   
   dispatch({type:UPLOAD_IMAGE_REQUEST})
 
+  console.log(" data received on action tag : ", processData);
+
   try {
 
-    const createdImage = await axios.get(`${API_BASED_COMMON_URL}/api/addimage`, 
-      formData,
+    const createdImage = await axios.get(`${API_BASED_COMMON_URL}/api/p/addimage`,  
+      processData,
       {
        headers:{
-          Authorization:`Bearer ${jwt}`
+        "Content-Type": "multipart/form-data", 
+        Authorization:`Bearer ${jwt}`
        },
        withCredentials:true
       }
@@ -23,13 +26,15 @@ export const addImage = (formData) => async (dispatch) =>{
     )
 
     if(createdImage){
-      getAllImages();
+      dispatch(getAllImages());
       console.log(" Image's details ( ADD NEW ) :  ", createdImage.data);
-      dispatch({ type:UPLOAD_IMAGE_SUCCESS, payload:createdImage.data})
+      dispatch({ type:UPLOAD_IMAGE_SUCCESS})
+      navigate("/dashboard/images")
     }
 
   } catch (error) {
       dispatch({ type:UPLOAD_IMAGE_FAILED, payload:error.message || "Something went wrong ...."  })
+      navigate("/dashboard/images/add")
   }
 
 }

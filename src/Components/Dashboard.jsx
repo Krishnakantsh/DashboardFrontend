@@ -12,19 +12,16 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
 
-  //  get admin details
+  //  get admin details ( it is for check total count for blogs and images )
   const admin = useSelector((store)=>store.admin?.admin)
   const blogs = useSelector((store)=>store.blogs?.blogs)
   const images = useSelector((store)=>store.images?.images)
 
-  console.info("all images are : ", images?.length);
-  console.info("all blogs are : ", blogs?.length);
-
   useEffect(()=>{
-     dispatch(getAllBlogs());
-     dispatch(getAllImages());
-  },[])
-  
+    dispatch(getAllBlogs());
+    dispatch(getAllImages());
+  }, [jwt, dispatch])
+
 
 
   const handleViewAll = (url) => {

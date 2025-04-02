@@ -4,38 +4,7 @@ import { DELETE_BLOG_BY_ID_FAILED, DELETE_BLOG_BY_ID_REQUEST, DELETE_BLOG_BY_ID_
 
 const jwt = localStorage.getItem("jwt")
 
-export const addNewBlog = (formData) => async (dispatch) =>{
-  
-  
-  dispatch({type:WRITE_BLOGS_REQUEST})
 
-  try {
-
-    const createdBlog = await axios.post(`${API_BASED_COMMON_URL}/api/addblog`, 
-      formData,
-      {
-        Headers:{
-           Authorization:`Bearer ${jwt}`
-        },
-        withCredentials:true
-       }
-   
-    )
-
-    if(createdBlog){
-
-      getAllBlogs()
-
-      console.log(" Blogs details :  ", createdBlog.data);
-
-      dispatch({ type:WRITE_BLOGS_SUCCESS, payload:createdBlog.data})
-    }
-
-  } catch (error) {
-      dispatch({ type:WRITE_BLOGS_FAILED, payload:error.message || "Something went wrong ...."  })
-  }
-
-}
 
 
 export const getAllBlogs = () => async (dispatch) =>{
@@ -124,6 +93,42 @@ export const deleteBlogById = (id) => async (dispatch) =>{
   } catch (error) {
       console.log(error.message)
       dispatch({ type:DELETE_BLOG_BY_ID_FAILED, payload:error.message || "Something went wrong ...."  })
+  }
+
+}
+
+
+
+export const addNewBlog = (formData) => async (dispatch) =>{
+  console.log(" data received from form : ", formData)
+  
+  dispatch({type:WRITE_BLOGS_REQUEST})
+
+  try {
+
+    const createdBlog = await axios.post(`${API_BASED_COMMON_URL}/api/p/addblog`, 
+      formData,
+      {
+        headers:{
+          "Content-Type": "multipart/form-data", 
+           Authorization:`Bearer ${jwt}`
+        },
+        withCredentials:true
+       }
+   
+    )
+
+    if(createdBlog){
+
+      dispatch(getAllBlogs())
+
+      console.log(" Blogs details :  ", createdBlog.data);
+
+      dispatch({ type:WRITE_BLOGS_SUCCESS, payload:createdBlog.data})
+    }
+
+  } catch (error) {
+      dispatch({ type:WRITE_BLOGS_FAILED, payload:error.message || "Something went wrong ...."  })
   }
 
 }

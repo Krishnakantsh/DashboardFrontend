@@ -17,6 +17,8 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getAdmin } from "../ReduxSetup/Admin/Action.js";
+import { getAllBlogs } from "../ReduxSetup/blogs/Action.js";
+import { getAllImages } from "../ReduxSetup/images/Action.js";
 
 
 

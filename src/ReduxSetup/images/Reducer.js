@@ -22,7 +22,7 @@ export const ImageReducer = (state = initialState, action)=>{
 
     case UPLOAD_IMAGE_SUCCESS:
     case GET_IMAGE_BY_ID_SUCCESS:
-      return {...state , isLoading:false , error:null , image:action.payload};
+      return {...state , isLoading:false , error:null};
 
     case DELETE_IMAGE_BY_ID_SUCCESS:
         return {...state , isLoading:false , error:null , image:null};

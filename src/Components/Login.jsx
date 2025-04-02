@@ -46,7 +46,6 @@ function Login() {
         email:data.get("email"),
         password:data.get("password"),
       }
-        console.log(" login fordata  at login page : ", adminData )
         dispatch(loginAdmin(adminData, navigate));
     }
 
