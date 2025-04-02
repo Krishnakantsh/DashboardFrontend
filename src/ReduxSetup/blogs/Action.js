@@ -11,7 +11,7 @@ export const addNewBlog = (formData) => async (dispatch) =>{
 
   try {
 
-    const createdBlog = await axios.post(`${API_BASED_COMMON_URL}/addblog`, 
+    const createdBlog = await axios.post(`${API_BASED_COMMON_URL}/api/addblog`, 
       formData,
       {
         Headers:{
@@ -45,7 +45,7 @@ export const getAllBlogs = () => async (dispatch) =>{
 
   try {
 
-    const allBlogs = await axios.get(`${API_BASED_COMMON_URL}/getallblogs`, 
+    const allBlogs = await axios.get(`${API_BASED_COMMON_URL}/api/p/getallblogs`, 
       {
         headers:{
            Authorization:`Bearer ${jwt}`
@@ -76,7 +76,7 @@ export const getBlogById = (id) => async (dispatch) =>{
   console.log(" request done here and id  : ", id)
   try {
 
-    const blog = await axios.get(`${API_BASED_COMMON_URL}/${id}/getblog`, 
+    const blog = await axios.get(`${API_BASED_COMMON_URL}/api/p/${id}/getblog`, 
       {
         headers:{
            Authorization:`Bearer ${jwt}`
@@ -105,7 +105,7 @@ export const deleteBlogById = (id) => async (dispatch) =>{
  
   try {
     
-    const blog = await axios.delete(`${API_BASED_COMMON_URL}/${id}/deleteblog`, 
+    const blog = await axios.delete(`${API_BASED_COMMON_URL}/api/p/${id}/deleteblog`, 
       {
         headers:{
            Authorization:`Bearer ${jwt}`

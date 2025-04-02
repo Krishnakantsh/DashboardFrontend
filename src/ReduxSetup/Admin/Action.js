@@ -1,6 +1,6 @@
 import axios from "axios"
 import { ADMIN_GET_PROFILE_FAILED, ADMIN_GET_PROFILE_REQUEST, ADMIN_GET_PROFILE_SUCCESS, ADMIN_LOGIN_FAILED, ADMIN_LOGIN_REQUEST, ADMIN_LOGIN_SUCCESS, ADMIN_LOGOUT_REQUEST, ADMIN_LOGOUT_SUCCESS } from "./ActionType.js"
-import { API_BASED_COMMON_URL, NORMAL_BASED_COMMON_URL } from "../../Config/ConfigItem.js"
+import { API_BASED_COMMON_URL } from "../../Config/ConfigItem.js"
 
 
 
@@ -13,7 +13,7 @@ export const loginAdmin = (adminData, navigate) => async(dispatch) => {
   dispatch({type:ADMIN_LOGIN_REQUEST})
   
   try {
-    const response = await axios.post(`${NORMAL_BASED_COMMON_URL}/login`,
+    const response = await axios.post(`${API_BASED_COMMON_URL}/api/login`,
        adminData,
         {
         headers:{
@@ -40,7 +40,7 @@ export const getAdmin = (jwt) => async (dispatch) => {
   dispatch({type:ADMIN_GET_PROFILE_REQUEST});
 
   try {
-    const response = await axios.get(`${API_BASED_COMMON_URL}/adminprofile`, {
+    const response = await axios.get(`${API_BASED_COMMON_URL}/api/p/adminprofile`, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
@@ -65,7 +65,7 @@ export const adminLogout = () =>async (dispatch) =>{
   
   dispatch({type:ADMIN_LOGOUT_REQUEST});
 
-     const data = await axios.post(`${API_BASED_COMMON_URL}/logout`, {},
+     const data = await axios.post(`${API_BASED_COMMON_URL}/api/p/logout`, {},
       {
         headers: {
           Authorization: `Bearer ${jwt}`,

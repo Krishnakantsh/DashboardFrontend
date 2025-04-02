@@ -75,12 +75,14 @@ function Login() {
           <form   onSubmit={handleSubmit}  className="flex flex-col w-full items-center gap-6">
             <input
               type="email"
+              id='email'
               name="email"
               style={{ boxShadow:"3px 3px 8px rgb(0,0,0,0.3),  -4px -4px 8px rgb(255,255,255) "}} 
               placeholder="Admin Id"
               className="w-full px-4 py-3 rounded-xl shadow-inner border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <input
+              id='password'
               type="password"
               name="password"
               placeholder="Password"

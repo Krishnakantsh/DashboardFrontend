@@ -11,7 +11,7 @@ export const addImage = (formData) => async (dispatch) =>{
 
   try {
 
-    const createdImage = await axios.get(`${API_BASED_COMMON_URL}/addimage`, 
+    const createdImage = await axios.get(`${API_BASED_COMMON_URL}/api/addimage`, 
       formData,
       {
        headers:{
@@ -42,7 +42,7 @@ export const getAllImages = () => async (dispatch) =>{
 
   try {
 
-    const allImage = await axios.get(`${API_BASED_COMMON_URL}/getallimages`, 
+    const allImage = await axios.get(`${API_BASED_COMMON_URL}/api/p/getallimages`, 
       {
         headers:{
            Authorization:`Bearer ${jwt}`,
@@ -73,7 +73,7 @@ export const getImageById = (id) => async (dispatch) =>{
 
   try {
 
-    const image = await axios.get(`${API_BASED_COMMON_URL}/${id}/getimage`, 
+    const image = await axios.get(`${API_BASED_COMMON_URL}/api/${id}/getimage`, 
       {
         headers:{
            Authorization:`Bearer ${jwt}`
@@ -103,7 +103,7 @@ export const deleteImageById = (id) => async (dispatch) =>{
 
   try {
 
-    const response = await axios.delete(`${API_BASED_COMMON_URL}/${id}/deleteimage`, 
+    const response = await axios.delete(`${API_BASED_COMMON_URL}/api/p/${id}/deleteimage`, 
       {
         headers:{
            Authorization:`Bearer ${jwt}`
