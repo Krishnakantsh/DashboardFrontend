@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Button, TextField } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { addNewBlog } from "../../ReduxSetup/blogs/Action";
+import { useNavigate } from "react-router-dom";
 
 const WriteNewBlock = () => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
 
@@ -17,7 +19,7 @@ const WriteNewBlock = () => {
       image:data.get("image"),
       description:data.get("description")
     }
-    dispatch(addNewBlog(actualData));
+    dispatch(addNewBlog(actualData, navigate));
      console.log("actual data : ", actualData)
   };
   

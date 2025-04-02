@@ -99,15 +99,15 @@ export const deleteBlogById = (id) => async (dispatch) =>{
 
 
 
-export const addNewBlog = (formData) => async (dispatch) =>{
-  console.log(" data received from form : ", formData)
+export const addNewBlog = (actualData, navigate) => async (dispatch) =>{
+  console.log(" data received from form : ", actualData)
   
   dispatch({type:WRITE_BLOGS_REQUEST})
 
   try {
 
     const createdBlog = await axios.post(`${API_BASED_COMMON_URL}/api/p/addblog`, 
-      formData,
+      actualData,
       {
         headers:{
           "Content-Type": "multipart/form-data", 
@@ -125,10 +125,12 @@ export const addNewBlog = (formData) => async (dispatch) =>{
       console.log(" Blogs details :  ", createdBlog.data);
 
       dispatch({ type:WRITE_BLOGS_SUCCESS, payload:createdBlog.data})
+      navigate("/dashboard/blogs")
     }
 
   } catch (error) {
       dispatch({ type:WRITE_BLOGS_FAILED, payload:error.message || "Something went wrong ...."  })
+      navigate("/dashboard/blogs/add")
   }
 
 }
